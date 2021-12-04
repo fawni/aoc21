@@ -2,27 +2,20 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"os"
-	"strconv"
 	"strings"
+
+	"github.com/x6r/aoc/utils"
 )
 
 func main() {
-	file, err := os.ReadFile("input.txt")
-	if err != nil {
-		log.Fatal(err)
-	}
-	input := strings.Split(string(file), "\n")
-	input = input[:len(input)-1]
+	input := utils.GetInput("input.txt")
 
 	var hpos, depth int
 
 	// part one
 	for _, line := range input {
 		slice := strings.Fields(line)
-		instruction := slice[0]
-		amount, _ := strconv.Atoi(slice[1])
+		instruction, amount := slice[0], utils.Atoi(slice[1])
 		switch instruction {
 		case "forward":
 			hpos += amount
@@ -41,8 +34,7 @@ func main() {
 
 	for _, line := range input {
 		slice := strings.Fields(line)
-		instruction := slice[0]
-		amount, _ := strconv.Atoi(slice[1])
+		instruction, amount := slice[0], utils.Atoi(slice[1])
 		switch instruction {
 		case "down":
 			aim += amount

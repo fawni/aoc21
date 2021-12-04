@@ -2,36 +2,32 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"strconv"
-	"strings"
+
+	"github.com/x6r/aoc/utils"
 )
 
 func main() {
-	file, _ := os.ReadFile("input.txt")
-	input := strings.Split(string(file), "\n")
-	input = input[:len(input)-1] // there is an additional space in the last line of the input file which messes with part two's sum
+	input := utils.GetInput("input.txt")
 
 	var increased int
-	current, _ := strconv.Atoi(input[0])
+	current := utils.Atoi(input[0])
 
 	// part one
-	for _, s := range input[1:] {
-		new, _ := strconv.Atoi(s)
-		if new > current {
+	for _, new := range input[1:] {
+		if utils.Atoi(new) > current {
 			increased++
 		}
-		current = new
+		current = utils.Atoi(new)
 	}
 
 	fmt.Println(increased)
 
 	// part two
 	increased = 0
-	sum := 0
-	nums := []int{0, 0, 0}
+	nums, sum := []int{0, 0, 0}, 0
+
 	for idx, s := range input {
-		num, _ := strconv.Atoi(s)
+		num := utils.Atoi(s)
 		currentSum := sum
 		sum += num - nums[0]
 		nums = append(nums[1:], num)

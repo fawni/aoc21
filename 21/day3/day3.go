@@ -2,25 +2,24 @@ package main
 
 import (
 	"fmt"
-	"os"
 	"strconv"
 	"strings"
+
+	"github.com/x6r/aoc/utils"
 )
 
 func main() {
-	file, _ := os.ReadFile("input.txt")
-	input := strings.Split(string(file), "\n")
-	input = input[:len(input)-1]
+	input := utils.GetInput("input.txt")
 
 	// part one
-	var gamma, epilson string
+	var gamma, epsilon string
+	bitLen := len(strings.Split(input[0], ""))
 
-	for i := 0; i < 12; i++ {
+	for i := 0; i < bitLen; i++ {
 		var ones, zeroes int
 
 		for _, binary := range input {
-			chars := strings.Split(binary, "")
-			num, _ := strconv.Atoi(chars[i])
+			num := utils.Atoi(strings.Split(binary, "")[i])
 			switch num {
 			case 0:
 				zeroes++
@@ -31,25 +30,25 @@ func main() {
 
 		if zeroes > ones {
 			gamma += "0"
-			epilson += "1"
+			epsilon += "1"
 		} else {
 			gamma += "1"
-			epilson += "0"
+			epsilon += "0"
 		}
 	}
 
-	gammadec, _ := strconv.ParseInt(gamma, 2, 64)
-	epilsondec, _ := strconv.ParseInt(epilson, 2, 64)
-	fmt.Println(gammadec * epilsondec)
+	gammad, _ := strconv.ParseInt(gamma, 2, 64)
+	epsilond, _ := strconv.ParseInt(epsilon, 2, 64)
+	fmt.Println(gammad * epsilond)
 
 	// part two
 	common, uncommon := input, input
 
-	for i := 0; i < 12; i++ {
+	for i := 0; i < bitLen; i++ {
 		var ones, zeroes []string
 		for _, binary := range common {
-			chars := strings.Split(binary, "")
-			num, _ := strconv.Atoi(chars[i])
+			num := utils.Atoi(strings.Split(binary, "")[i])
+
 			switch num {
 			case 0:
 				zeroes = append(zeroes, binary)
@@ -69,11 +68,11 @@ func main() {
 		}
 	}
 
-	for i := 0; i < 12; i++ {
+	for i := 0; i < bitLen; i++ {
 		var ones, zeroes []string
 		for _, binary := range uncommon {
-			chars := strings.Split(binary, "")
-			num, _ := strconv.Atoi(chars[i])
+			num := utils.Atoi(strings.Split(binary, "")[i])
+
 			switch num {
 			case 0:
 				zeroes = append(zeroes, binary)
